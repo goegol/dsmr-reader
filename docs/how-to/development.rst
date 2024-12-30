@@ -14,7 +14,7 @@ Setting up a development environment using Docker
     I'm using JetBrain's PyCharm IDE for local development, which has builtin support for Git and Docker.
     Therefor some steps or information below may or may not match your own development stack.
 
-- Install Docker on your system.
+- Install Docker on your system. E.g. Ubuntu: https://docs.docker.com/engine/install/ubuntu/ and consider rootless: https://docs.docker.com/engine/security/rootless/
 
 - Clone DSMR-reader repository from GitHub::
 
@@ -60,7 +60,9 @@ Setting up a development environment using Docker
 
 .. tip::
 
-    Other DB engines can be tested as well, but the CI will take care of it anyway. The SQLite engine matches 99% of the features DSMR-reader requires and it also runs in-memory, speeding up tests.
+    Other DB engines can be tested as well, but the CI will take care of it anyway. The SQLite engine matches 99%% of the features DSMR-reader requires and it also runs in-memory, speeding up tests.
+
+- When using PyCharm, you can add a new Interpreter using Docker Compose. Just select ``dsmr-app`` and set ``/opt/venv/bin/python`` as interpreter path. It should now map all dependencies used/installed in the container.
 
 
 Initial data to develop with

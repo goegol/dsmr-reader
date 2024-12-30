@@ -16,13 +16,32 @@ Current release series
 
     The releases in this series are currently supported and will receive new features and bug/security fixes until a new major series is released *(give or take once a year)*.
 
-    - Every **minor** release (e.g. ``v4.x`` -> ``v4.y``) is *usually* compatible with any preceding release in the same series and should allow you to update easily. See :doc:`how to (minor) update in the same series</how-to/upgrading/upgrade>`.
+    - Every **minor** release (e.g. ``v5.x`` -> ``v5.y``) is *usually* compatible with any preceding release in the same series and should allow you to update easily. See :doc:`how to (minor) update in the same series</how-to/upgrading/upgrade>`.
 
-    - Every new **major** series (e.g. ``v4.x`` -> ``v5.x``) *usually* contains incompatible changes that require you to update with additional manual steps. Upgrading to the **last release** of a series (e.g. ``v4.20``), should tell you where to find the upgrade steps required.
+    - Every new **major** series (e.g. ``v5.x`` -> ``v6.x``) *usually* contains incompatible changes that require you to update with additional manual steps. Upgrading to the **last release** of a series (e.g. ``v4.20``), should tell you where to find the upgrade steps required.
 
 
 .. contents:: :local:
     :depth: 1
+
+
+v5.11.0 - February 2024
+-----------------------
+
+- ``Fixed`` Bugfix for Archive which was causing the electricity returned meter positions to be displayed at all times.
+- ``Fixed`` [`#1767 <https://github.com/dsmrreader/dsmr-reader/issues/1767>`_] Slightly alter debug info for unsupported database engines.
+- ``Fixed`` [`#1841 <https://github.com/dsmrreader/dsmr-reader/issues/1841>`_] Restored broken `v4-upgrade-redirect` route for legacy upgrades.
+- ``Fixed`` [`#1901 <https://github.com/dsmrreader/dsmr-reader/issues/1901>`_] Naamgeving in configuratie van sorted graphs.
+- ``Fixed`` [`#1945 <https://github.com/dsmrreader/dsmr-reader/issues/1945>`_] Maak intervallen in retentie nauwkeuriger. - by `RichieB2B`
+
+- ``Changed`` [`#1827 <https://github.com/dsmrreader/dsmr-reader/issues/1827>`_] Update to python 3.11.2 - by ``goegol``
+- ``Changed`` [`#1861 <https://github.com/dsmrreader/dsmr-reader/issues/1861>`_] Added undocumented env var for low level datalogger usage
+
+
+v5.10.4 - November 2023
+-----------------------
+
+- ``Fixed`` [`#1915 <https://github.com/dsmrreader/dsmr-reader/issues/1915>`_] Pyyaml dependency unavailable.
 
 
 v5.10.3 - February 2023

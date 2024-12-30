@@ -260,7 +260,10 @@ def clear_statistics() -> None:
 
 def electricity_tariff_percentage(start: date, end: date) -> Optional[Dict]:
     """Returns the total electricity consumption percentage by tariff (high/low tariff)."""
-    totals = DayStatistics.objects.filter(day__gte=start, day__lte=end,).aggregate(
+    totals = DayStatistics.objects.filter(
+        day__gte=start,
+        day__lte=end,
+    ).aggregate(
         electricity1=Sum("electricity1"),
         electricity2=Sum("electricity2"),
     )
@@ -416,6 +419,7 @@ def year_statistics(target_date: datetime.date):
     return range_statistics(start=start_of_year, end=end_of_year)
 
 
+# @TODO: Consider reworking this to meter positions in favor of https://github.com/dsmrreader/dsmr-reader/issues/1811
 def period_totals() -> Dict:
     """Retrieves year/month period totals and merges them with today's consumption."""
     today = timezone.localtime(timezone.now())

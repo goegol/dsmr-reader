@@ -7,7 +7,6 @@ import math
 import crcmod
 import serial
 from django.core.management.base import BaseCommand, CommandError
-from django.utils.translation import gettext as _
 from django.utils import timezone
 from django.conf import settings
 
@@ -19,9 +18,9 @@ logger = logging.getLogger("dsmrreader")
 
 
 class Command(InfiniteManagementCommandMixin, BaseCommand):
-    help = "Generates a FAKE reading. DO NOT USE in production! Used for integration checks."
+    help = "Generates a FAKE reading. DO NOT USE in production! Used for integration checks. Tip: Use with --sleep 1."
     name = __name__  # Required for PID file.
-    sleep_time = 3
+    sleep_time = 0
 
     def add_arguments(self, parser):
         super(Command, self).add_arguments(parser)
@@ -61,13 +60,23 @@ class Command(InfiniteManagementCommandMixin, BaseCommand):
             metavar="/path/to/port",
             help="Optional: The serial port to write the telegram to. Useful to simulate a real port.",
         )
+        parser.add_argument(
+            "--sleep",
+            action="store",
+            dest="sleep_time",
+            default=None,
+            help="Optional: The sleep in seconds between generating readings.",
+        )
 
     def run(self, **options):
         """InfiniteManagementCommandMixin listens to handle() and calls run() in a loop."""
         if not settings.DEBUG and not options["use_demo_mode_and_override_checks"]:
             raise CommandError(
-                _("Intended usage is NOT production! Only allowed when DEBUG = True")
+                "Intended usage is NOT production! Only allowed when DEBUG = True"
             )
+
+        if options["sleep_time"] is not None:
+            self.sleep_time = options["sleep_time"]
 
         telegram = self._generate_data(
             options["with_gas"],

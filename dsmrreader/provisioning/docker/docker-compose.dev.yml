@@ -7,10 +7,13 @@ services:
   # http://localhost:8000
   dsmr-app:
     container_name: dsmr-app
+    restart: unless-stopped
     build:
       context: .
       dockerfile: Dockerfile
       target: local-dsmrreader-app
+      args:
+        - PYTHON_VERSION=3.11
     volumes:
       - .:/app
     ports:
@@ -51,6 +54,7 @@ services:
 
   # http://localhost:10000
   dsmr-docs-en:
+    restart: unless-stopped
     build:
       context: .
       dockerfile: Dockerfile
@@ -62,6 +66,7 @@ services:
 
   # http://localhost:10001
   dsmr-docs-nl:
+    restart: unless-stopped
     build:
       context: .
       dockerfile: Dockerfile
@@ -74,7 +79,7 @@ services:
   dsmr-db:
     container_name: dsmr-db
     image: postgres:13
-    restart: always
+    restart: unless-stopped
     ports:
       - '5432:5432'
     healthcheck:
@@ -92,8 +97,8 @@ services:
       - POSTGRES_PASSWORD=postgres-password
 
   test-db-postgres:
-    image: postgres:13
-    restart: always
+    image: postgres:14
+    restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U dsmrreader"]
       interval: 10s
@@ -106,8 +111,8 @@ services:
 
   # WARNING: MySQL tests/connections are broken here, but do seem to work well in the CI anyway.
   test-db-mysql:
-    image: mysql:5.7
-    restart: always
+    image: mysql:8
+    restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping"]
       interval: 10s
@@ -121,7 +126,7 @@ services:
 
   mosquitto:
     image: eclipse-mosquitto:2
-    restart: always
+    restart: unless-stopped
     volumes:
       - ./dsmrreader/provisioning/docker/mosquitto-dev/:/mosquitto/config/
     ports:
@@ -129,7 +134,7 @@ services:
 
   influxdb:
     image: influxdb:2.0-alpine
-    restart: always
+    restart: unless-stopped
     ports:
       - '8086:8086'
     environment:
